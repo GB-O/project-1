@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.hanwha.login">
+
+	<select id="selectPw" resultType="com.hanwha.model.MemberDTO" parameterType="com.hanwha.model.MemberDTO">
+		select * from customer where cId = #{cId} and cPassword = #{cPassword}
+	</select>	
+	
+	<!-- 회원가입 -->
+	<insert id="register" parameterType="com.hanwha.model.MemberDTO">
+		insert into customer values(#{cId}, #{cPassword}, #{cname}, #{phoneNumber}, #{address})
+	</insert>
+	
+	<!-- 회원정보 수정 -->
+	<update id="update" parameterType="com.hanwha.model.MemberDTO">
+		update customer set 
+		cPassword=#{cPassword}, 
+		cname=#{cname}, 
+		phoneNumber=#{phoneNumber}, 
+		address=#{address}
+		where cId=#{cId}			
+	</update>
+	
+</mapper>

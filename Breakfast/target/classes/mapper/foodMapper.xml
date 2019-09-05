@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.hanwha.food">
+
+	
+	<select id="allmenu" resultType="com.hanwha.model.FoodDetailDTO">
+	 	select * from  fooddetail
+	
+	</select>
+	
+	<select id="allfood" resultType="com.hanwha.model.FoodDTO">
+	 	select * from  food
+	
+	</select>
+	
+	<insert id="orderinsert" parameterType="com.hanwha.model.OrderInfoDTO">
+		insert into orderinfo values(ordernumber_seq.nextval,#{cId}, 
+		#{egg }, #{meat }, #{bread } ,#{salad }, #{drink }, #{method }, sysdate) 
+	</insert>
+	
+	<select id="orderselect" parameterType="map" resultType="com.hanwha.model.OrderListDTO">
+		
+	select cid, orderdate, menuname, price
+	from orderinfo, fooddetail
+	where orderinfo.egg = fooddetail.foodsequence
+	and orderinfo.cid=#{cid}
+	and to_char(orderinfo.orderdate,'yyyy/MM/dd') = to_char(sysdate,'yyyy/MM/dd')
+	union
+	select cid, orderdate, menuname, price
+	from orderinfo, fooddetail
+	where orderinfo.meat = fooddetail.foodsequence
+	and orderinfo.cid=#{cid}
+	and to_char(orderinfo.orderdate,'yyyy/MM/dd') = to_char(sysdate,'yyyy/MM/dd')
+	union
+	select cid, orderdate, menuname, price
+	from orderinfo, fooddetail
+	where orderinfo.bread = fooddetail.foodsequence
+	and orderinfo.cid=#{cid}
+	and to_char(orderinfo.orderdate,'yyyy/MM/dd') = to_char(sysdate,'yyyy/MM/dd')
+	union
+	select cid, orderdate, menuname, price
+	from orderinfo, fooddetail
+	where orderinfo.salad = fooddetail.foodsequence
+	and orderinfo.cid=#{cid}
+	and to_char(orderinfo.orderdate,'yyyy/MM/dd') = to_char(sysdate,'yyyy/MM/dd')
+	union
+	select cid, orderdate, menuname, price
+	from orderinfo, fooddetail
+	where orderinfo.drink = fooddetail.foodsequence
+	and orderinfo.cid=#{cid}
+	and to_char(orderinfo.orderdate,'yyyy/MM/dd') = to_char(sysdate,'yyyy/MM/dd')
+	union
+	select cid, orderdate, menuname, price
+	from orderinfo, fooddetail
+	where orderinfo.method = fooddetail.foodsequence
+	and orderinfo.cid=#{cid}
+	and to_char(orderinfo.orderdate,'yyyy/MM/dd') = to_char(sysdate,'yyyy/MM/dd')
+
+	
+	</select>
+	
+	
+</mapper>
